@@ -21,6 +21,7 @@ let fullButton;
 class MainMenu extends Phaser.Scene { 
     constructor(test) { 
         super({ key: 'MainMenu' }); 
+    
     } 
  
     preload() {

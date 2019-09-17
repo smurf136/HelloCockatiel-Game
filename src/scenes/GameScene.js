@@ -45,15 +45,28 @@ class GameScene extends Phaser.Scene {
         super({
             key: 'GameScene'
         });
+        
     }
 
     preload() {
-        this.load.spritesheet('player', 'src/image/player.png', { frameWidth: 410, frameHeight: 310 })
+        this.load.spritesheet('player', 'src/image/player.png', {
+            frameWidth: 410,
+            frameHeight: 310
+        })
         this.load.image('bg', 'src/image/background.png')
         this.load.image('bullet', 'src/image/Bullet.png')
-        this.load.spritesheet('monster', 'src/image/botSpriteSheet.png', { frameWidth: 2232, frameHeight: 2232 })
-        this.load.spritesheet('hp', 'src/image/HP.png', { frameWidth: 2510, frameHeight: 1510 })
-        this.load.spritesheet('fire', 'src/image/Fire.png', { frameWidth: 492, frameHeight: 703 })
+        this.load.spritesheet('monster', 'src/image/botSpriteSheet.png', {
+            frameWidth: 2232,
+            frameHeight: 2232
+        })
+        this.load.spritesheet('hp', 'src/image/HP.png', {
+            frameWidth: 2510,
+            frameHeight: 1510
+        })
+        this.load.spritesheet('fire', 'src/image/Fire.png', {
+            frameWidth: 492,
+            frameHeight: 703
+        })
         this.load.image('cloud1', 'src/image/cloud1.png')
         this.load.image('cloud2', 'src/image/cloud2.png')
         this.load.image('cloud3', 'src/image/cloud3.png')
@@ -73,7 +86,10 @@ class GameScene extends Phaser.Scene {
         bg = this.add.tileSprite(0, 0, 600, 900, 'bg').setOrigin(0, 0)
         player = this.physics.add.sprite(300, 850, 'player').setCollideWorldBounds(true).setDepth(10).setScale(0.4)
         hp = this.physics.add.sprite(450, 50, 'hp').setScale(0.1).setDepth(10)
-        var style = { font: '32px Arial', fill: '#FFFFFF' };
+        var style = {
+            font: '32px Arial',
+            fill: '#FFFFFF'
+        };
         scoreText = this.add.text(16, 16, "Score : 0", style).setDepth(10)
 
         cursor = this.input.keyboard.createCursorKeys()
@@ -94,23 +110,31 @@ class GameScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'playerAni',
-            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 7 }),
+            frames: this.anims.generateFrameNumbers('player', {
+                start: 0,
+                end: 7
+            }),
             framerate: 10,
             repeat: -1
-        }
-        )
+        })
 
 
         this.anims.create({
             key: 'fly',
-            frames: this.anims.generateFrameNumbers('monster', { start: 0, end: 2 }),
+            frames: this.anims.generateFrameNumbers('monster', {
+                start: 0,
+                end: 2
+            }),
             framerate: 5,
             repeat: -1
         })
 
         this.anims.create({
             key: 'fireAni',
-            frames: this.anims.generateFrameNumbers('fire', { start: 0, end: 2 }),
+            frames: this.anims.generateFrameNumbers('fire', {
+                start: 0,
+                end: 2
+            }),
             framerate: 10,
             repeat: -1
         })
@@ -337,7 +361,7 @@ class GameScene extends Phaser.Scene {
         this.physics.add.overlap(bushs, seas, this.checkSeaAndBush)
 
         this.physics.add.overlap(fires, bushs, (fire, forest) => {
-            if (Phaser.Math.Between(1, 70) == 1) {//random bigFire spawn 
+            if (Phaser.Math.Between(1, 70) == 1) { //random bigFire spawn 
                 if (!fired) {
                     if (forest.y <= 450) {
                         fire.destroy(true)
@@ -350,6 +374,9 @@ class GameScene extends Phaser.Scene {
                 }
             }
         })
+
+        
+        health = 1
 
 
     }
@@ -497,12 +524,14 @@ class GameScene extends Phaser.Scene {
             fast.paused = false
         }
 
+
+
     }
 
 
 
     gameOver() {
-        this.scene.pause()
+        this.scene.start('Restart')
         console.log('Game Over')
     }
 
@@ -521,8 +550,8 @@ class GameScene extends Phaser.Scene {
             fired = false
             score += 300;
             scoreText.setText('Score: ' + score);
-            if (Phaser.Math.Between(1, 3) == 1) {//random item spawn 
-                if (Phaser.Math.Between(1, 2) == 1) {//random item type
+            if (Phaser.Math.Between(1, 3) == 1) { //random item spawn 
+                if (Phaser.Math.Between(1, 2) == 1) { //random item type
                     item = this.physics.add.image(bigFire.x, bigFire.y, 'separate').setDepth(2).setScale(0.2)
                     item.setData('type', 'spread')
                     items.add(item)
@@ -557,17 +586,23 @@ class GameScene extends Phaser.Scene {
 
     firesHit(player, fire) {
         switch (health) {
-            case 5: hp.setFrame(1)
+            case 5:
+                hp.setFrame(1)
                 break;
-            case 4: hp.setFrame(2)
+            case 4:
+                hp.setFrame(2)
                 break;
-            case 3: hp.setFrame(3)
+            case 3:
+                hp.setFrame(3)
                 break;
-            case 2: hp.setFrame(4)
+            case 2:
+                hp.setFrame(4)
                 break;
-            case 1: hp.setFrame(5)
+            case 1:
+                hp.setFrame(5)
                 break;
-            case 0: break;
+            case 0:
+                break;
         }
         health -= 1
         fire.destroy(true)
