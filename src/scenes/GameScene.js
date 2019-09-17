@@ -375,10 +375,6 @@ class GameScene extends Phaser.Scene {
             }
         })
 
-        
-        health = 1
-
-
     }
 
     update() {
